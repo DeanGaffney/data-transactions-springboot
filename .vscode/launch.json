@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DataTransactionApp",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.dgaffney.datatransactions.DataTransactionApp",
+            "args": "",
+            "projectName": "data-transactions"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DemoApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "com.dgaffney.datatransactions.DemoApplication",
+            "args": "",
+            "projectName": "data-transactions"
+        }
+    ]
+}
