@@ -1,7 +1,5 @@
 package com.dgaffney.transaction;
 
-import java.util.Comparator;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,7 +7,7 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.lang.Nullable;
 
-public class Transaction implements Comparable<Transaction>{
+public class Transaction {
 
     @NotEmpty
     @NotNull
@@ -53,19 +51,17 @@ public class Transaction implements Comparable<Transaction>{
      * @return a csv representation of the transaction object
      */
     public String toCsv(){
-        return "$date,$type,$amount";
+        return String.format("%s,%s,%s", this.getDate(), this.getType(), this.getAmount());
     }
 
+
     /**
-     * Compares two transactions based on their date and type
-     * @param transaction the transaction to compare to
-     * @return the compareTo integer
+     * Consider objects equal if they have the same date and type attributes
      */
     @Override
-    public int compareTo(Transaction transaction) {
-        return Comparator.comparing(Transaction::getDate)
-                         .thenComparing(Transaction::getType)
-                         .compare(this, transaction);
+    public boolean equals(Object obj) {
+        return this.getDate().equals(((Transaction)obj).getDate()) &&
+               this.getType().equals(((Transaction)obj).getType());
     }
 
     /**

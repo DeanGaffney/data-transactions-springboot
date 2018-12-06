@@ -75,7 +75,7 @@ public class TransactionService {
     TransactionResult updateAndWrite(File transactionFile, File transactionsCopyFile, Transactions transactions){
         TransactionResult transactionResult = new TransactionResult(0, 0, "No operations occurred");
         // try with resources on stream and writer
-        try(Stream<String> fileStream = Files.lines(Paths.get(transactionFile.getName())); BufferedWriter writer = new BufferedWriter(new FileWriter(transactionsCopyFile))){
+        try(Stream<String> fileStream = Files.lines(transactionFile.toPath()); BufferedWriter writer = new BufferedWriter(new FileWriter(transactionsCopyFile))){
             // read from original transactions the file line by line to keep memory consumption down
             fileStream.forEach (line -> {
                 if(!line.isEmpty()){
@@ -109,7 +109,7 @@ public class TransactionService {
     void updateMatchingTransactions(Transactions transactionsFromClient, Transaction transactionToMatch){
         // with each line compare it against each transaction to see if there are duplicates
         transactionsFromClient.getEntries().forEach(transaction ->{
-            if(transaction == transactionToMatch){
+            if(transaction.equals(transactionToMatch)){
                 // if the transactions are the same sum the transactions
                 transactionToMatch.sumTransactions(transaction);
                 transaction.setExisted(true);
@@ -243,7 +243,9 @@ public class TransactionService {
      */
     void appendToTransactionsCopyFile(BufferedWriter writer, Transaction transaction) {
         try {
-            writer.append(transaction.toCsv());
+            writer.write(transaction.toCsv());
+            writer.newLine();
+            writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
