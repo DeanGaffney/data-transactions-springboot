@@ -17,6 +17,9 @@ public class TransactionController {
 
     @PostMapping(value = "/transaction")
     public TransactionResult persistTransactions(@Valid @RequestBody Transactions transactions, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return new TransactionResult(0, 0, bindingResult.getFieldError().getDefaultMessage());
+        }
         return transactionService.persistTransactions(transactions);
     }
 

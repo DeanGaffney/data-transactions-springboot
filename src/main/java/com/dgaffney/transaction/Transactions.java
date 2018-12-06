@@ -3,11 +3,11 @@ package com.dgaffney.transaction;
 import java.util.Collections;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
 
 public class Transactions {
 
-    @NotEmpty
+    @Valid
     private List<Transaction> entries;    
 
     public Transactions() { 
